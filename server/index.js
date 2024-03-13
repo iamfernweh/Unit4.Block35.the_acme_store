@@ -1,4 +1,10 @@
-const { client, createTables, createUser, createProduct } = require('./db');
+const {
+  client,
+  createTables,
+  createUser,
+  createProduct,
+  createFavorite,
+} = require('./db');
 
 //building the init functionality
 const init = async () => {
@@ -16,6 +22,10 @@ const init = async () => {
       createProduct({ name: 'mercedes' }),
       createProduct({ name: 'alpine' }),
     ]);
+  const [lewisMERC, lewisFERR] = await Promise.all([
+    createFavorite({ user_id: lewis.id, product_id: ferrari.id }),
+    createFavorite({ user_id: lewis.id, product_id: mercedes.id }),
+  ]);
 };
 
 init();

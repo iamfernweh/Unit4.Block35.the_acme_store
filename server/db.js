@@ -56,5 +56,17 @@ const createProduct = async ({ name }) => {
   return response.rows[0];
 };
 
+//create favorite
+const createFavorite = async ({ user_id, product_id }) => {
+  const SQL = `
+    `;
+};
+
 //always remember to export
-module.exports = { client, createTables, createUser, createProduct };
+module.exports = {
+  client,
+  createTables,
+  createUser,
+  createProduct,
+  createFavorite,
+};
