@@ -14,6 +14,24 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
+//get users
+app.get('/api/users', async (req, res, next) => {
+  try {
+    res.send(await fetchUsers());
+  } catch (er) {
+    next(er);
+  }
+});
+
+//get products
+app.get('/api/products', async (req, res, next) => {
+  try {
+    res.send(await fetchProducts());
+  } catch (er) {
+    next(er);
+  }
+});
+
 //building the init functionality
 const init = async () => {
   console.log('connecting to db');
@@ -48,6 +66,8 @@ const init = async () => {
   const port = process.env.PORT || 3001;
   app.listen(port, () => {
     console.log(`listening on port ${port}`);
+    console.log(`curl localhost:${port}/api/users`);
+    console.log(`curl localhost:${port}/api/products`);
   });
 };
 
