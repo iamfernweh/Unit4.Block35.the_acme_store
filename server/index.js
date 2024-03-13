@@ -10,6 +10,10 @@ const {
   destroyFavorite,
 } = require('./db');
 
+const express = require('express');
+const app = express();
+app.use(express.json());
+
 //building the init functionality
 const init = async () => {
   console.log('connecting to db');
@@ -38,6 +42,13 @@ const init = async () => {
   console.log(await fetchFavorites(lewis.id));
 
   await destroyFavorite(lewisMERC);
+
+  console.log(await fetchFavorites(lewis.id));
+
+  const port = process.env.PORT || 3001;
+  app.listen(port, () => {
+    console.log(`listening on port ${port}`);
+  });
 };
 
 init();
