@@ -41,6 +41,19 @@ app.get('/api/users/:id/favorites', async (req, res, next) => {
   }
 });
 
+//post favorite
+app.post('/api/users/:id/favorites', async (req, res, next) => {
+  try {
+    const userProduct = await createFavorite({
+      user_id: req.params.id,
+      product_id: req.body.product_id,
+    });
+    res.send(201).send(userProduct);
+  } catch (er) {
+    next(er);
+  }
+});
+
 //building the init functionality
 const init = async () => {
   console.log('connecting to db');
@@ -78,6 +91,12 @@ const init = async () => {
     console.log(`curl localhost:${port}/api/users`);
     console.log(`curl localhost:${port}/api/products`);
     console.log(`curl localhost:${port}/api/users/${lewis.id}/favorites`);
+    console.log(
+      `curl -X POST localhost:${port}/api/users/${lewis.id}/favorites -d '{"product_id": "${alpine.id}"}' -H "Content-Type:application/json"`
+    );
+    console.log(
+      `curl -X DELETE localhost:${port}/api/users/${lewis.id}/favorites/${lewisMERC}`
+    );
   });
 };
 
