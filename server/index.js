@@ -7,6 +7,7 @@ const {
   fetchUsers,
   fetchProducts,
   fetchFavorites,
+  destroyFavorite,
 } = require('./db');
 
 //building the init functionality
@@ -35,6 +36,8 @@ const init = async () => {
   ]);
 
   console.log(await fetchFavorites(lewis.id));
+
+  await destroyFavorite(lewisMERC);
 };
 
 init();

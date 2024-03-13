@@ -98,6 +98,21 @@ const fetchFavorites = async (user_id) => {
   return response.rows;
 };
 
+//destroy favorite
+const destroyFavorite = async ({ user_id, id }) => {
+  const SQL = `
+    DELETE FROM favorites
+    WHERE id = $1 and user_id = $2
+    RETURNING *
+    `;
+  const response = await client.query(SQL, [id, user_id]);
+  if (!response.rows.length) {
+    const error = Error('no favorite available');
+    error.status = 500;
+    throw error;
+  }
+};
+
 //always remember to export
 module.exports = {
   client,
@@ -108,4 +123,5 @@ module.exports = {
   fetchUsers,
   fetchProducts,
   fetchFavorites,
+  destroyFavorite,
 };
