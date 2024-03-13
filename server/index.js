@@ -32,6 +32,15 @@ app.get('/api/products', async (req, res, next) => {
   }
 });
 
+//get favorites
+app.get('/api/users/:id/favorites', async (req, res, next) => {
+  try {
+    res.send(await fetchFavorites(req.params.id));
+  } catch (er) {
+    next(er);
+  }
+});
+
 //building the init functionality
 const init = async () => {
   console.log('connecting to db');
