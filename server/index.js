@@ -77,6 +77,7 @@ const init = async () => {
     console.log(`listening on port ${port}`);
     console.log(`curl localhost:${port}/api/users`);
     console.log(`curl localhost:${port}/api/products`);
+    console.log(`curl localhost:${port}/api/users/${lewis.id}/favorites`);
   });
 };
 
