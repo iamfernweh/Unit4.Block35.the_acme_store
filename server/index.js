@@ -4,6 +4,9 @@ const {
   createUser,
   createProduct,
   createFavorite,
+  fetchUsers,
+  fetchProducts,
+  fetchFavorites,
 } = require('./db');
 
 //building the init functionality
@@ -22,10 +25,16 @@ const init = async () => {
       createProduct({ name: 'mercedes' }),
       createProduct({ name: 'alpine' }),
     ]);
+
+  console.log(await fetchUsers());
+  console.log(await fetchProducts());
+
   const [lewisMERC, lewisFERR] = await Promise.all([
     createFavorite({ user_id: lewis.id, product_id: ferrari.id }),
     createFavorite({ user_id: lewis.id, product_id: mercedes.id }),
   ]);
+
+  console.log(await fetchFavorites(lewis.id));
 };
 
 init();

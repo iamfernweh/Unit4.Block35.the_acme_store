@@ -67,6 +67,37 @@ const createFavorite = async ({ user_id, product_id }) => {
   return response.rows[0];
 };
 
+//fetch users
+const fetchUsers = async () => {
+  const SQL = `
+    SELECT *
+    FROM users
+    `;
+  const response = await client.query(SQL);
+  return response.rows;
+};
+
+//fetch products
+const fetchProducts = async () => {
+  const SQL = `
+      SELECT *
+      FROM products
+      `;
+  const response = await client.query(SQL);
+  return response.rows;
+};
+
+//fetch favorites
+const fetchFavorites = async (user_id) => {
+  const SQL = `
+    SELECT *
+    FROM favorites
+    WHERE user_id = $1
+    `;
+  const response = await client.query(SQL, [user_id]);
+  return response.rows;
+};
+
 //always remember to export
 module.exports = {
   client,
@@ -74,4 +105,7 @@ module.exports = {
   createUser,
   createProduct,
   createFavorite,
+  fetchUsers,
+  fetchProducts,
+  fetchFavorites,
 };
