@@ -8,7 +8,9 @@ const init = async () => {
   await createTables();
   console.log('tables created');
   const [charles, lewis, esteban] = await Promise.all([
-    createUser({ username: 'charles', password: '999' }),
+    createUser({ username: 'charles', password: '16' }),
+    createUser({ username: 'lewis', password: '44' }),
+    createUser({ username: 'esteban', password: '31' }),
   ]);
 };
 
