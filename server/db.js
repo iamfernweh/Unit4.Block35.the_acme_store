@@ -19,8 +19,12 @@ const createTables = async () => {
         id UUID PRIMARY KEY,
         name VARCHAR (128) UNIQUE NOT NULL
     );
-    CREATE TABLE favorites();
-
+    CREATE TABLE favorites(
+        id UUID PRIMARY KEY,
+        user_id UUID REFERENCES users(id) NOT NULL,
+        product_id UUID REFERENCES products(id) NOT NULL,
+        CONSTRAINT user_product_unique UNIQUE (user_id, product_id)
+    );
   `;
   await client.query(SQL);
 };
