@@ -64,6 +64,12 @@ app.delete('/api/users/:userId/favorites/:id', async (req, res, next) => {
   }
 });
 
+//use error msg
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(err.status || 500).send({ error: err.message || err });
+});
+
 //building the init functionality
 const init = async () => {
   console.log('connecting to db');
@@ -84,7 +90,7 @@ const init = async () => {
   console.log(await fetchUsers());
   console.log(await fetchProducts());
 
-  const [lewisMERC, lewisFERR] = await Promise.all([
+  const [lewisFERR, lewisMERC] = await Promise.all([
     createFavorite({ user_id: lewis.id, product_id: ferrari.id }),
     createFavorite({ user_id: lewis.id, product_id: mercedes.id }),
   ]);
@@ -105,7 +111,7 @@ const init = async () => {
       `curl -X POST localhost:${port}/api/users/${lewis.id}/favorites -d '{"product_id": "${alpine.id}"}' -H "Content-Type:application/json"`
     );
     console.log(
-      `curl -X DELETE localhost:${port}/api/users/${lewis.id}/favorites/${lewisMERC}`
+      `curl -X DELETE localhost:${port}/api/users/${lewis.id}/favorites/${lewisMERC.id}`
     );
   });
 };
